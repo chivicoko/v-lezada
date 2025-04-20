@@ -14,7 +14,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="relative">    
+  <div class="relative">  
     <ScrollToTopButton/>
   </div>
   <RouterView />

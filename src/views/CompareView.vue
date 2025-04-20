@@ -62,6 +62,10 @@ const compareItems = ref([
     },
 ]);
 
+const deleteItem = (id: number) => {
+  const newCompareItems = compareItems.value.filter(item => item.id !== id);
+  compareItems.value = newCompareItems;
+}
 </script>
 
 <template>
@@ -82,7 +86,7 @@ const compareItems = ref([
             <div v-for="item in compareItems" :key="item.id" class="py-8 flex flex-col justify-between gap-4 text-neutral-700 divide-y divide-neutral-300">
               <div class="flex flex-col gap-4 ">
                 <div class="flex items-center justify-center">
-                  <button class="cursor-pointer hover:text-red-700 text-2xl transition-all duration-300 ease-in-out"><TrashIcon /></button>
+                  <button @click="() => deleteItem(item.id)" class="cursor-pointer hover:text-red-700 text-2xl transition-all duration-300 ease-in-out"><TrashIcon /></button>
                 </div>
                 
                 <div class="flex items-center justify-center">

@@ -1,44 +1,42 @@
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { defineProps, ref, onMounted } from "vue";
 import CancelIcon from "@/components/icons/CancelIcon.vue"
+import LoadingSpinner from "@/components/LoadingSpinner.vue"
+import ConfirmDeleteModal from "@/components/ConfirmDeleteModal.vue"
+import { useCartStore } from '@/stores/cart'
+import { storeToRefs } from 'pinia'
+import type { Product } from '@/types'
+import { initialProduct } from '@/data'
 
-const cartItems = ref([
-    {
-        id: 1,
-        title: 'Product Decor 1',
-        price: 16.50,
-        old_price: 19.00,
-        percentageDiscount: 15.00,
-        new: true,
-        out: false,
-        img1: '1.jpg',
-        img2: '9.jpg',
-        quantity: 3,
-    },
-    {
-        id: 2,
-        title: 'Product Decor 2',
-        price: 16.50,
-        old_price: 19.00,
-        percentageDiscount: 0.00,
-        new: true,
-        out: false,
-        img1: '2.jpg',
-        img2: '3.jpg',
-        quantity: 2,
-    },
-    {
-        id: 3,
-        title: 'Product Decor 3',
-        price: 16.50,
-        old_price: 19.00,
-        percentageDiscount: 0.00,
-        new: true,
-        out: false,
-        img1: '3.jpg',
-        img2: '4.jpg',
-    },
-]);
+const cartStore = useCartStore()
+const isOpen = ref(false);
+const currentItem = ref<Product>(initialProduct);
+
+const { cart, cartTotal, isLoading } = storeToRefs(cartStore);
+const { fetchCart, removeFromCart } = cartStore;
+
+onMounted(() => {
+  fetchCart()
+  // console.log(cart.value);
+})
+
+const cancelDelete = () => {
+    isOpen.value = false;
+    // console.log(isOpen.value)
+}
+
+const openModal = (id: number) => {
+    const item = cart.value.find((item) => item.id === id);
+    isOpen.value = true;
+    if (item) {
+        currentItem.value = item;
+    }
+}
+
+const handleDelete = (id: number) => {
+    removeFromCart(id);
+    isOpen.value = false;
+}
 
 defineProps<{
     toggleCartbarVisibility: () => void,
@@ -48,24 +46,34 @@ defineProps<{
 <template>
     <div class="flex items-center justify-between text-neutral-700 gap-4 border-b border-neutral-300 py-2">
         <h2 class="text-2xl">Cart</h2>
-        <button @click="toggleCartbarVisibility" class="cursor-pointer text-3xl transform hover:rotate-90 transition-all duration-700 ease-in-out"><CancelIcon/></button>
+        <button @click="toggleCartbarVisibility" class="cursor-pointer text-3xl transform hover:text-red-700 hover:rotate-90 transition-all duration-700 ease-in-out">
+            <CancelIcon/>
+        </button>
     </div>
     
-    <div v-if="cartItems.length > 0">
-        <div class="h-[55vh] overflow-hidden hover:overflow-auto custom-scrollbar">
-            <div v-for="item in cartItems" :key="item.id" class="flex items-start justify-between gap-2 border-b border-neutral-300 py-5">
-                <img :src="`/src/assets/images/product/decor/${item.img1}`" alt="" class="w-20 h-30 object-cover"/>
-                <div>
-                    <p class="text-gray-600 truncate">{{ item.title }}</p>
-                    <p class="text-gray-600 truncate">${{ item.price }}</p>
+    <div v-if="isLoading" class="py-16 flex items-center justify-center"><LoadingSpinner dynamicSize="size-12" /></div>
+
+    <div v-else-if="cart.length > 0">
+        <div class="h-[55vh] overflow-auto custom-scrollbar">
+            <div v-for="item in cart" :key="item.id" class="flex items-start justify-between gap-2 border-b border-neutral-300 py-5">
+                <img :src="`${item.product.image}`" alt="" class="w-20 h-30 object-cover"/>
+                <div class="">
+                    <p class="text-gray-600 text-whitespace pb-3">{{ item.product.name }}</p>
+                    <p class="text-gray-600 truncate">${{ parseFloat(item.product.price).toFixed(2) }}</p>
                 </div>
-                <button class="cursor-pointer py-2 px-4 text-neutral-300 text-2xl hover:text-red-700">&times;</button>
+                <button @click="openModal(item.id)" class="cursor-pointer py-2 px-4 text-neutral-300 text-2xl hover:text-red-700">
+                    &times;
+                </button>
+                
+                <!-- <section v-if="isOpen" class="fixed inset-0 -top-5 bg-gray-800 bg-opacity-80 flex justify-center items-center p-2 z-[999999]">
+                    <ConfirmDeleteModal :cancelDelete="cancelDelete" :handleDelete="handleDelete" :item="currentItem" :isLoading="isLoading" />
+                </section> -->
             </div>
         </div>
 
         <p class="flex items-center justify-between gap-4 border-b border-neutral-300 py-3">
             <span class="font-semibold">Subtotal</span>
-            <span class="font-semibold">$130.60</span>
+            <span class="font-semibold">${{parseFloat(cartTotal).toFixed(2)}}</span>
         </p>
             
         <div class="py-6 w-full flex flex-col items-center justify-center gap-4">
@@ -80,4 +88,13 @@ defineProps<{
     <div v-else>
         <p>No items found in the cart</p>
     </div>
+
+    <ConfirmDeleteModal  
+        v-if="isOpen"
+        :cancelDelete="cancelDelete" 
+        :handleDelete="handleDelete" 
+        :item="currentItem" 
+        :isLoading="isLoading" 
+        mode="cart"
+    />
 </template>

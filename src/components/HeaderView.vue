@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ArrowLeft from "@/components/icons/ArrowLeft.vue"
 import ArrowRight from "@/components/icons/ArrowRight.vue"
-import { hero_slides } from '@/utils/data';
+import { hero_slides } from '@/data';
 import {ref} from "vue";
 
 const slide_index = ref(0);

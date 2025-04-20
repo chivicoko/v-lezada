@@ -1,6 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+// // Example of route guard in router/index.ts
+// import { useAuthStore } from '@/stores/authStore'
+
+// const routes = [
+//   {
+//     path: '/admin',
+//     component: () => import('@/views/AdminDashboard.vue'),
+//     beforeEnter: (to, from, next) => {
+//       const auth = useAuthStore()
+//       if (!auth.isAuthenticated || !auth.isAdmin) {
+//         next('/login')
+//       } else {
+//         next()
+//       }
+//     }
+//   }
+// ]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,12 +42,17 @@ const router = createRouter({
     },
     {
       path: '/blog-posts',
-      name: 'blog-posts',
+      name: 'blogPosts',
       component: () => import('../views/BlogPosts.vue'),
     },
     {
+      path: '/products/:id',
+      name: 'productDetails',
+      component: () => import('../views/ProductView.vue'),
+    },
+    {
       path: '/blog-posts/:slug',
-      name: 'blog-posts/:slug',
+      name: 'blogPostDetails',
       component: () => import('../views/SingleBlogPost.vue'),
     },
     {

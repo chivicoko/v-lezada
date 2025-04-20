@@ -2,7 +2,7 @@
 import HeaderTwo from "@/components/HeaderTwo.vue";
 import AppLayout from "@/layouts/AppLayout.vue";
 import { ref } from "vue";
-import { faqs } from '@/utils/data';
+import { faqs } from '@/data';
 import ArrowDown from "@/components/icons/ArrowDown.vue"
 
 const activeIndex = ref(0);

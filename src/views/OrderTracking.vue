@@ -8,7 +8,7 @@ import AppLayout from "@/layouts/AppLayout.vue";
     <section class="w-full">
       <HeaderTwo/>
       
-      <div class="py-24 px-42">
+      <div class="w-full py-24 px-42">
 
         <div class="w-full h-full flex items-center justify-center gap-6">
 

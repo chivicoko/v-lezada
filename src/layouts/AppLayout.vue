@@ -6,7 +6,7 @@ import FooterView from '@/components/FooterView.vue';
 <template>
     <section class="w-full h-fit min-h-screen flex flex-col items-center relative">
         <NavBar/>
-        <div class="overflow-hidden">
+        <div class="overflow-hidden w-full">
             <slot />
         </div>
         <FooterView/>

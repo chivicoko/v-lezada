@@ -4,7 +4,7 @@ import AppLayout from "@/layouts/AppLayout.vue";
 
 import ArrowLeft from "@/components/icons/ArrowLeft.vue"
 import ArrowRight from "@/components/icons/ArrowRight.vue"
-import { testimonials_slides } from '@/utils/data';
+import { testimonials_slides } from '@/data';
 import {ref} from "vue";
 
 const slide_index = ref(0);

@@ -12,18 +12,22 @@ export const nav_tabs = [
                     {
                         title: 'Decor',
                         preview: 'decor.jpg',
+                        link: '',
                     },
                     {
                         title: 'Creative',
                         preview: 'creative.jpg',
+                        link: '',
                     },
                     {
                         title: 'Perfumes',
                         preview: 'perfumes.jpg',
+                        link: '',
                     },
                     {
                         title: 'Trending',
                         preview: 'trending.jpg',
+                        link: '',
                     },
                 ],
             },
@@ -34,18 +38,22 @@ export const nav_tabs = [
                     {
                         title: 'Essentials',
                         preview: 'essentials.jpg',
+                        link: '',
                     },
                     {
                         title: 'Accessories',
                         preview: 'accessories.jpg',
+                        link: '',
                     },
                     {
                         title: 'Lookbook',
                         preview: 'lookbook.jpg',
+                        link: '',
                     },
                     {
                         title: 'Furniture',
                         preview: 'furniture.jpg',
+                        link: '',
                     },
                 ],
             },
@@ -56,18 +64,22 @@ export const nav_tabs = [
                     {
                         title: 'Smart Design',
                         preview: 'smart-design.jpg',
+                        link: '',
                     },
                     {
                         title: 'Collection',
                         preview: 'collection.jpg',
+                        link: '',
                     },
                     {
                         title: 'Jewelry',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Cosmetics',
                         preview: '',
+                        link: '',
                     },
                 ],
             },
@@ -78,14 +90,17 @@ export const nav_tabs = [
                     {
                         title: 'Swimsuit',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Special',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Concept',
                         preview: '',
+                        link: '',
                     },
                 ],
             },
@@ -103,26 +118,32 @@ export const nav_tabs = [
                     {
                         title: 'Right Sidebar',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'No Sidebar',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Full Width No Space',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Full Width No Sidebar',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Full Width No Left Sidebar',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Full Width No Right Sidebar',
                         preview: '',
+                        link: '',
                     },
                 ],
             },
@@ -133,26 +154,32 @@ export const nav_tabs = [
                     {
                         title: 'Basic',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Full Width Right Thumb',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Sticky Details',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Shopping Cart',
                         preview: '',
+                        link: '/cart',
                     },
                     {
                         title: 'Wishlist',
                         preview: '',
+                        link: '/wishlist',
                     },
                     {
                         title: 'Compare',
                         preview: '',
+                        link: '/compare',
                     },
                 ],
             },
@@ -163,18 +190,22 @@ export const nav_tabs = [
                     {
                         title: 'Checkout',
                         preview: '',
+                        link: '/checkout',
                     },
                     {
                         title: 'Order Tracking',
                         preview: '',
+                        link: '/order-tracking',
                     },
                     {
                         title: 'My Account',
                         preview: '',
+                        link: '/my-account',
                     },
                     {
                         title: 'Login Register',
                         preview: '',
+                        link: '/login-register',
                     },
                 ],
             },
@@ -192,22 +223,27 @@ export const nav_tabs = [
                     {
                         title: 'Product Categories',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Product Sliders',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Product Tabs',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Product Widgets',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Recent Products',
                         preview: '',
+                        link: '',
                     },
                 ],
             },
@@ -218,22 +254,27 @@ export const nav_tabs = [
                     {
                         title: 'Sale Products',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Featured Products',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Top Rated Products',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Best Selling',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Product Attributes',
                         preview: '',
+                        link: '',
                     },
                 ],
             },
@@ -244,22 +285,27 @@ export const nav_tabs = [
                     {
                         title: 'Blog Posts',
                         preview: '',
+                        link: '/blog-posts',
                     },
                     {
                         title: 'Mailchimp Form',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Icon Box',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Team Member',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'FAQs / Toggles',
                         preview: '',
+                        link: '/faq',
                     },
                 ],
             },
@@ -270,18 +316,65 @@ export const nav_tabs = [
                     {
                         title: 'Countdown Timer',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Buttons',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Testimonials',
                         preview: '',
+                        link: '',
                     },
                     {
                         title: 'Google Maps',
                         preview: '',
+                        link: '',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        id: 1,
+        tabTitle: 'Pages',
+        img: "",
+        dropdownItems: [
+            {
+                id: 1,
+                title: '',
+                items: [
+                    {
+                        title: 'About Us',
+                        preview: '',
+                        link: '/about',
+                    },
+                    {
+                        title: 'About Us Two',
+                        preview: '',
+                        link: '/about',
+                    },
+                    {
+                        title: 'Contact Us',
+                        preview: '',
+                        link: '/contact',
+                    },
+                    {
+                        title: 'FAQ',
+                        preview: '',
+                        link: '/faq',
+                    },
+                    {
+                        title: 'Coming Soon',
+                        preview: '',
+                        link: '/coming-soon',
+                    },
+                    {
+                        title: 'Not Found',
+                        preview: '',
+                        link: '/not-found',
                     },
                 ],
             },
@@ -293,32 +386,32 @@ export const pagesTab = [
     {
         id: 1,
         title: 'About Us',
-        url: 'about',
+        url: '/about',
     },
     {
         id: 2,
         title: 'ABout Us Two',
-        url: 'about',
+        url: '/about',
     },
     {
         id: 3,
         title: 'Contact Us',
-        url: 'contact',
+        url: '/contact',
     },
     {
         id: 4,
         title: 'FAQ',
-        url: 'faq',
+        url: '/faq',
     },
     {
         id: 5,
         title: 'Coming Soon',
-        url: 'coming-soon',
+        url: '/coming-soon',
     },
     {
         id: 6,
         title: 'Not Found',
-        url: 'not-found',
+        url: '/not-found',
     },
 ]
 
@@ -326,22 +419,86 @@ export const blogTab = [
     {
         id: 1,
         title: 'Standard Layout',
-        menu: ['Left Sidebar', 'Right Sidebar', 'Full Width'],
+        menu: [
+            {
+                id: 1,
+                title: 'Left Sidebar',
+                link: '',
+            },
+            {
+                id: 2,
+                title: 'Right Sidebar',
+                link: '',
+            },
+            {
+                id: 3,
+                title: 'Full Width',
+                link: '',
+            },
+        ],
     },
     {
         id: 2,
         title: 'Grid Layout',
-        menu: ['Left Sidebar', 'Right Sidebar', 'Full Width'],
+        menu: [
+            {
+                id: 1,
+                title: 'Left Sidebar',
+                link: '',
+            },
+            {
+                id: 2,
+                title: 'Right Sidebar',
+                link: '',
+            },
+            {
+                id: 3,
+                title: 'Full Width',
+                link: '',
+            },
+        ],
     },
     {
         id: 3,
         title: 'List Layout',
-        menu: ['Left Sidebar', 'Right Sidebar', 'Full Width'],
+        menu: [
+            {
+                id: 1,
+                title: 'Left Sidebar',
+                link: '',
+            },
+            {
+                id: 2,
+                title: 'Right Sidebar',
+                link: '',
+            },
+            {
+                id: 3,
+                title: 'Full Width',
+                link: '',
+            },
+        ],
     },
     {
         id: 4,
         title: 'Single Post Layout',
-        menu: ['Left Sidebar', 'Right Sidebar', 'Full Width'],
+        menu: [
+            {
+                id: 1,
+                title: 'Left Sidebar',
+                link: '',
+            },
+            {
+                id: 2,
+                title: 'Right Sidebar',
+                link: '',
+            },
+            {
+                id: 3,
+                title: 'Full Width',
+                link: '',
+            },
+        ],
     },
 ]
 
@@ -583,3 +740,16 @@ export const faqs = [
         ],
     },
 ]
+
+export const initialProduct = {
+    id: 0,
+    category: '',
+    name: '',
+    description: '',
+    price: '',
+    image: '',
+    hover_image: '',
+    created_at: '',
+    updated_at: '',
+    stock: 0,
+  }

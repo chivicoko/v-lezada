@@ -1,102 +1,149 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
+import { withTryCatch } from '@/utils/withTryCatch';
+import { sendApiRequest } from '@/utils/api';
+import type { Product, CartItem } from '@/types'
 
-export const useTaskStore = defineStore('tasks', () => {
-  const cart = ref(localStorage.getItem('cart') || []);
-//   const [cart, setCart] = useState<Product2[]>([]);
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`;
 
-//   // Load cart from localStorage when the component mounts
-//   useEffect(() => {
-//     const savedCart = localStorage.getItem('cart');
-//     if (savedCart) {
-//       setCart(JSON.parse(savedCart));
-//     }
-//   }, []);
-  
-  // Save cart to localStorage whenever the cart state changes, but only if it's not empty
-  
-//   useEffect(() => {
-//     if (cart.value.length > 0) {
-//       localStorage.setItem('cart', JSON.stringify(cart));
-//     }
-//   }, [cart]);  
+export const useCartStore = defineStore('cart', () => {
+  const products = ref<Product[]>([]);
+  const selectedProduct = ref<Product | null>(null);
+  const cart = ref<CartItem[]>([]);
+  const wishlist = ref<Product[]>([]);
+  const isLoading = ref(true);
 
-  function addToCart(product: Product2) {
-    const existingProduct = cart.value.find((item) => item.id === product.id);
-    if (!existingProduct) {
-      cart.value.push({ ...product, quantity: 1 });
-    }
-  };
+  const cartTotal = computed(() => {
+    return cart.value.reduce((sum, item) => {
+      return sum + ((parseFloat(item.product.price) || 0) * item.quantity);
+    }, 0)
+  })
 
-  function removeFromCart(productId: string) {
-    cart.value = cart.value.filter((item) => item.id !== productId);
-  };
+  const cartCount = computed(() =>
+    cart.value.reduce((sum, item) => sum + item.quantity, 0)
+  );
 
-  function clearCart() {
-    setCart([]);
-  };
-
-  const totalCount = cart.value.reduce((total, product) => total + (product.quantity || 1), 0);
-  const totalCartCount = cart.value.length;
-
-  function getProductQuantity(productId: string): number {
-    const product = cart.value.find((item) => item.id === productId);
-    return product ? product.quantity || 1 : 0;
-  };
-  
-
-  function getTotalPrice() {
-    const total = cart.value.reduce((sum, product) => {
-      const price = parseFloat(product.price) * (product.quantity || 1);
-      return sum + price;
-    }, 0);
-    return total.toFixed(2);
-  };
-
-  // Check if a product is in the cart
-  function isProductInCart(productId: string): boolean {
-    return cart.value.some((item) => item.id === productId);
-  };
-
-  // Increase the quantity of a product in the cart
-  function increaseProductQuantity(productId: string) {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity: (item.quantity || 1) + 1 } : item
-      )
+  async function fetchCart() {
+    const url = `${API_BASE_URL}/cart`;
+    
+    const { data, error } = await withTryCatch(() =>
+      sendApiRequest('get', url)
     );
-  };
+    // console.log(data);
 
-  // Decrease the quantity of a product in the cart
-  function decreaseProductQuantity(productId: string) {
-    const product = cart.value.find((item) => item.id === productId);
-  
-    if (product && product.quantity === 1) {
-      // Remove the product if the quantity is 1
-      setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+    if (data.status === 'success') {
+      cart.value = data.data;
+      // console.log("Cart items retrieved successfully:", cart.value);
     } else {
-      // Decrease the quantity if it's greater than 1
-      setCart((prevCart) =>
-        prevCart.map((item) =>
-          item.id === productId && item.quantity! > 1
-            ? { ...item, quantity: item.quantity! - 1 }
-            : item
-        )
-      );
+      console.error("Failed to retrieve cart.");
     }
-  };
-  
-  return {
-    addToCart,
-    removeFromCart,
-    clearCart,
-    getProductQuantity,
-    getTotalPrice,
-    isProductInCart,
-    increaseProductQuantity,
-    decreaseProductQuantity,
-    totalCartCount,
-    totalCount,
-}
+    
+    if (error) {
+      console.log(error);
+    }
 
-})
+    isLoading.value = false;
+  }
+
+  async function updateCartItem(itemId: number, newQuantity: number) {
+    const url = `${API_BASE_URL}/cart/${itemId}`;
+    
+    const { data, error } = await withTryCatch(() =>
+      sendApiRequest('put', url, { quantity: newQuantity })
+    );
+
+    if (data.status === 'success') {
+      await fetchCart();
+      console.log(data.message);
+      // console.log("Cart update response:", data);
+    }
+    
+    if (error) {
+      console.log(error);
+    }
+
+    isLoading.value = false;
+  }
+  
+  async function addToCart(productId: number, quantity: number) {
+    const url = `${API_BASE_URL}/cart/add`;
+
+    const item = cart.value.find((item) => item.id === productId);
+    if (item !== undefined) {
+      handleCartUpdate(productId, 'increase');
+      await fetchCart();
+      return;
+    }
+
+    const requestBody = {
+      product_id: productId,
+      quantity: quantity
+    };
+
+    const { data, error } = await withTryCatch(() =>
+      sendApiRequest('post', url, requestBody)
+    );
+    // console.log(data);
+
+    if (data.status === 'success') {
+      await fetchCart();
+      console.log("Success!", data.message);
+    } else {
+      console.error("Failed to added product to cart.");
+    }
+    
+    if (error) {
+      console.log(error);
+    }
+
+    isLoading.value = false;
+  }
+
+  async function removeFromCart(itemId: number) {
+    const url = `${API_BASE_URL}/cart/${itemId}`;
+    
+    const { data, error } = await withTryCatch(() =>
+      sendApiRequest('delete', url)
+    );
+
+    if (data.status === 'success') {
+      await fetchCart();
+      console.log("Success!", data.message);
+    }
+    
+    if (error) {
+      console.log(error);
+    }
+
+    isLoading.value = false;
+  }
+  
+  const handleCartUpdate = (id:number, mode: string) => {
+    const item = cart.value.find((item) => item.id === id);
+
+    if (item) {
+      item.quantity = mode === 'increase' ? item.quantity + 1 : item.quantity - 1;
+      updateCartItem(id, item.quantity);
+
+      if (item.quantity < 1) {
+        removeFromCart(id);
+      }
+    }
+
+    isLoading.value = false;
+  }
+
+  return {
+    isLoading,
+    products,
+    selectedProduct,
+    cart,
+    wishlist,
+    cartTotal,
+    cartCount,
+    fetchCart,
+    addToCart,
+    handleCartUpdate,
+    removeFromCart,
+  };
+});
