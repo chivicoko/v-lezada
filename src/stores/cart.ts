@@ -2,20 +2,29 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { withTryCatch } from '@/utils/withTryCatch';
 import { sendApiRequest } from '@/utils/api';
-import type { Product, CartItem } from '@/types'
+import type { Product, CartItemProps } from '@/types';
+import { useWishlistStore } from '@/stores/wishlist';
+import { useToast } from 'vue-toast-notification';
 
 const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`;
 
 export const useCartStore = defineStore('cart', () => {
   const products = ref<Product[]>([]);
   const selectedProduct = ref<Product | null>(null);
-  const cart = ref<CartItem[]>([]);
-  const wishlist = ref<Product[]>([]);
+  const cart = ref<CartItemProps[]>([]);
   const isLoading = ref(true);
+  const isClearAll = ref(false);
+  const isAddition = ref(false);
+
+  const wishlistStore = useWishlistStore();
+  const wishlist = computed(() => wishlistStore.wishlist);
+  const { removeFromWishlist } = wishlistStore;
+
+  const toast = useToast();
 
   const cartTotal = computed(() => {
     return cart.value.reduce((sum, item) => {
-      return sum + ((parseFloat(item.product.price) || 0) * item.quantity);
+      return sum + ((parseFloat(item.product.price ?? '') || 0) * item.quantity);
     }, 0)
   })
 
@@ -23,23 +32,30 @@ export const useCartStore = defineStore('cart', () => {
     cart.value.reduce((sum, item) => sum + item.quantity, 0)
   );
 
+  // const isInCart = computed(() => {
+  //   return (productId: number) => {
+  //     return cart.value.some(item => item.id === productId);
+  //   };
+  // });
+  const isInCart = (productId: number) => {
+    return cart.value.some(p => p.id === productId);
+  }  
+
   async function fetchCart() {
     const url = `${API_BASE_URL}/cart`;
     
     const { data, error } = await withTryCatch(() =>
       sendApiRequest('get', url)
     );
-    // console.log(data);
 
     if (data.status === 'success') {
       cart.value = data.data;
-      // console.log("Cart items retrieved successfully:", cart.value);
     } else {
-      console.error("Failed to retrieve cart.");
+      toast.error("Failed to retrieve cart.");
     }
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -54,50 +70,59 @@ export const useCartStore = defineStore('cart', () => {
 
     if (data.status === 'success') {
       await fetchCart();
-      console.log(data.message);
-      // console.log("Cart update response:", data);
+      if (!isAddition.value) toast.default(data.message)
     }
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
   }
-  
+
   async function addToCart(productId: number, quantity: number) {
     const url = `${API_BASE_URL}/cart/add`;
+    isAddition.value = true;
 
-    const item = cart.value.find((item) => item.id === productId);
+    const item = cart.value.find((item) => item.product.id === productId);
     if (item !== undefined) {
-      handleCartUpdate(productId, 'increase');
+      handleCartUpdate(item.id, 'increase');
       await fetchCart();
       return;
     }
-
+  
     const requestBody = {
       product_id: productId,
       quantity: quantity
     };
-
+  
     const { data, error } = await withTryCatch(() =>
       sendApiRequest('post', url, requestBody)
     );
-    // console.log(data);
+  
+    if (data?.status === 'success') {
+      toast.default(data.message)
 
-    if (data.status === 'success') {
       await fetchCart();
-      console.log("Success!", data.message);
+  
+      if (wishlist.value && Array.isArray(wishlist.value)) {
+        const wishlistItem = wishlist.value.find((item) => item.id === productId);
+        if (wishlistItem) {
+          await removeFromWishlist(productId);
+        }
+      }
     } else {
-      console.error("Failed to added product to cart.");
+      toast.error("Failed to add product to cart.");
     }
-    
+  
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
-
+  
+    isAddition.value = false;
     isLoading.value = false;
   }
+  
 
   async function removeFromCart(itemId: number) {
     const url = `${API_BASE_URL}/cart/${itemId}`;
@@ -107,12 +132,12 @@ export const useCartStore = defineStore('cart', () => {
     );
 
     if (data.status === 'success') {
+      if (!isClearAll.value) toast.error(data.message);
       await fetchCart();
-      console.log("Success!", data.message);
     }
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -133,17 +158,28 @@ export const useCartStore = defineStore('cart', () => {
     isLoading.value = false;
   }
 
+  function clearCart() {
+    isClearAll.value = true;
+    isLoading.value = true;
+    cart.value.forEach(async item => 
+      removeFromCart(item.id)
+    )
+    toast.error('Cart cleared! All cart items have been deleted.');
+    isLoading.value = false;
+  };
+
   return {
     isLoading,
     products,
     selectedProduct,
     cart,
-    wishlist,
     cartTotal,
     cartCount,
+    isInCart,
     fetchCart,
     addToCart,
     handleCartUpdate,
     removeFromCart,
+    clearCart
   };
 });

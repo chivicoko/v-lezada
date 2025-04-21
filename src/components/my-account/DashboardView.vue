@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import LoadingSpinner from "@/components/LoadingSpinner.vue"
+
+defineProps<{
+  isLoading: boolean,
+  userNames: {
+    firstName: string;
+    lastName: string;
+  },
+}>();
 </script>
 
 <template>
@@ -7,9 +16,11 @@
   </div>
   
   <div class="flex items-center justify-between gap-6 py-7">
-    <p class="text-neutral-500">
-      <span>Hello, <span class="font-semibold text-neutral-800">John Doe</span> (If Not <span class="font-semibold text-neutral-800">John !</span> Logout)</span>
-      <span>From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</span>
+    <div v-if="isLoading" class="w-full py-6 flex items-center justify-center"><LoadingSpinner dynamicSize="size-8" /></div>
+    
+    <p v-else class="text-neutral-500">
+      <span>Hello, <span class="font-semibold text-neutral-800">{{`${userNames.firstName} ${userNames.lastName}`}}</span> (If Not <span class="font-semibold text-neutral-800 capitalize">{{userNames.firstName}} !</span> Logout)</span>
+      <span> from your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</span>
     </p>
   </div>
           

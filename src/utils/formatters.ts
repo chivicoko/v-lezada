@@ -1,7 +1,9 @@
-export const parseItemIntoArray = (item: string, divider: string) => {
-    if (item) {
-      const itemArray = item.split(divider).map(item => item.trim()).filter(item => item !== '');
-      return itemArray;
-    }
-  };
-  
+export const parseItemIntoArray = (item: string | undefined, divider: string) => {
+  if (item) {
+    return item
+      .split(divider)
+      .map(item => item.trim())
+      .filter(item => item !== '');
+  }
+  return [];
+};

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import type { Order } from '@/types'
 
 const tableHead = ref(['Order', 'Date', 'Status', 'Total', 'Action']);
 
@@ -24,6 +25,9 @@ const tableData = ref([
     },
 ]);
 
+defineProps<{
+  orders?: Order
+}>();
 
 </script>
 

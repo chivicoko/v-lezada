@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { withTryCatch } from '@/utils/withTryCatch';
 import { sendApiRequest } from '@/utils/api';
 import type { Product } from '@/types'
+import { useToast } from 'vue-toast-notification';
 
 const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/products`;
 
@@ -13,6 +15,8 @@ export const useProductsStore = defineStore('products', () => {
   const isLoading = ref(true);
   const hasMore = ref(true)
   const nextPageUrl = ref<string>(``)
+  const toast = useToast();
+  const route = useRoute();
 
   let fetching = false;
 
@@ -25,19 +29,15 @@ export const useProductsStore = defineStore('products', () => {
     try {
       const urlToFetch = nextPageUrl.value || API_BASE_URL;
       const { data } = await withTryCatch(() => sendApiRequest('get', urlToFetch));
-      
       if (data !== undefined) {
         const newProducts = data.data.data;
         products.value.push(...newProducts);
 
         nextPageUrl.value = data.data.next_page_url;
         hasMore.value = !!nextPageUrl.value;
-
-        // console.log('Products: ', products.value);
-        // console.log('New Products: ', newProducts);
       }
-    } catch (err) {
-      console.error('Failed to fetch products:', err);
+    } catch (error) {
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     } finally {
       isLoading.value = false;
       fetching = false;
@@ -52,37 +52,18 @@ export const useProductsStore = defineStore('products', () => {
       sendApiRequest('get', url)
     );
 
-    if (data !== null) {
+    if (data !== null && route.path === `/products/${productId}`) {
       selectedProduct.value = data.data;
-      // console.log("Product retrieved successfully:", selectedProduct.value);
     } else {
-      console.error("Failed to retrieve product.");
+      selectedProduct.value = null;
     }
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
   }
-
-  // async function fetchReviews(productId: number) {
-  //   try {
-  //     const { data } = await axios.get<Review[]>(`${API_BASE_URL}products/${productId}/reviews`);
-  //     reviews.value = data;
-  //   } catch (error) {
-  //     console.error(`Error fetching reviews for product ${productId}:`, error);
-  //   }
-  // }
-
-  // async function addReview(productId: number, review: Omit<Review, 'id'>) {
-  //   try {
-  //     await axios.post(`${API_BASE_URL}products/${productId}/reviews`, review);
-  //     await fetchReviews(productId);
-  //   } catch (error) {
-  //     console.error(`Error adding review for product ${productId}:`, error);
-  //   }
-  // }
 
   return {
     isLoading,

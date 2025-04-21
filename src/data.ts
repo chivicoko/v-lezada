@@ -3,6 +3,7 @@ export const nav_tabs = [
     {
         id: 1,
         tabTitle: 'Home',
+        url: '/',
         img: "menu-element.png",
         dropdownItems: [
             {
@@ -109,6 +110,7 @@ export const nav_tabs = [
     {
         id: 2,
         tabTitle: 'Shop',
+        url: '/shop',
         img: "megamenu-shop.png",
         dropdownItems: [
             {
@@ -213,35 +215,41 @@ export const nav_tabs = [
     },
     {
         id: 3,
-        tabTitle: 'Elements',
-        img: "menu-element.png",
+        tabTitle: 'Blog',
+        url: '/blog',
+        img: "megamenu-shop.png",
         dropdownItems: [
             {
                 id: 1,
                 title: 'Group One',
                 items: [
                     {
-                        title: 'Product Categories',
+                        title: 'Right Sidebar',
                         preview: '',
                         link: '',
                     },
                     {
-                        title: 'Product Sliders',
+                        title: 'No Sidebar',
                         preview: '',
                         link: '',
                     },
                     {
-                        title: 'Product Tabs',
+                        title: 'Full Width No Space',
                         preview: '',
                         link: '',
                     },
                     {
-                        title: 'Product Widgets',
+                        title: 'Full Width No Sidebar',
                         preview: '',
                         link: '',
                     },
                     {
-                        title: 'Recent Products',
+                        title: 'Full Width No Left Sidebar',
+                        preview: '',
+                        link: '',
+                    },
+                    {
+                        title: 'Full Width No Right Sidebar',
                         preview: '',
                         link: '',
                     },
@@ -252,134 +260,234 @@ export const nav_tabs = [
                 title: 'Group Two',
                 items: [
                     {
-                        title: 'Sale Products',
+                        title: 'Basic',
                         preview: '',
                         link: '',
                     },
                     {
-                        title: 'Featured Products',
+                        title: 'Full Width Right Thumb',
                         preview: '',
                         link: '',
                     },
                     {
-                        title: 'Top Rated Products',
+                        title: 'Sticky Details',
                         preview: '',
                         link: '',
                     },
                     {
-                        title: 'Best Selling',
+                        title: 'Shopping Cart',
                         preview: '',
-                        link: '',
+                        link: '/cart',
                     },
                     {
-                        title: 'Product Attributes',
+                        title: 'Wishlist',
                         preview: '',
-                        link: '',
+                        link: '/wishlist',
+                    },
+                    {
+                        title: 'Compare',
+                        preview: '',
+                        link: '/compare',
                     },
                 ],
             },
             {
                 id: 3,
-                title: 'Group Three',
+                title: 'Shop Pages',
                 items: [
                     {
-                        title: 'Blog Posts',
+                        title: 'Checkout',
                         preview: '',
-                        link: '/blog-posts',
+                        link: '/checkout',
                     },
                     {
-                        title: 'Mailchimp Form',
+                        title: 'Order Tracking',
                         preview: '',
-                        link: '',
+                        link: '/order-tracking',
                     },
                     {
-                        title: 'Icon Box',
+                        title: 'My Account',
                         preview: '',
-                        link: '',
+                        link: '/my-account',
                     },
                     {
-                        title: 'Team Member',
+                        title: 'Login Register',
                         preview: '',
-                        link: '',
-                    },
-                    {
-                        title: 'FAQs / Toggles',
-                        preview: '',
-                        link: '/faq',
-                    },
-                ],
-            },
-            {
-                id: 4,
-                title: 'Group Four',
-                items: [
-                    {
-                        title: 'Countdown Timer',
-                        preview: '',
-                        link: '',
-                    },
-                    {
-                        title: 'Buttons',
-                        preview: '',
-                        link: '',
-                    },
-                    {
-                        title: 'Testimonials',
-                        preview: '',
-                        link: '',
-                    },
-                    {
-                        title: 'Google Maps',
-                        preview: '',
-                        link: '',
+                        link: '/login-register',
                     },
                 ],
             },
         ],
     },
-    {
-        id: 1,
-        tabTitle: 'Pages',
-        img: "",
-        dropdownItems: [
-            {
-                id: 1,
-                title: '',
-                items: [
-                    {
-                        title: 'About Us',
-                        preview: '',
-                        link: '/about',
-                    },
-                    {
-                        title: 'About Us Two',
-                        preview: '',
-                        link: '/about',
-                    },
-                    {
-                        title: 'Contact Us',
-                        preview: '',
-                        link: '/contact',
-                    },
-                    {
-                        title: 'FAQ',
-                        preview: '',
-                        link: '/faq',
-                    },
-                    {
-                        title: 'Coming Soon',
-                        preview: '',
-                        link: '/coming-soon',
-                    },
-                    {
-                        title: 'Not Found',
-                        preview: '',
-                        link: '/not-found',
-                    },
-                ],
-            },
-        ],
-    },
+    // {
+    //     id: 3,
+    //     tabTitle: 'Elements',
+    //     img: "menu-element.png",
+    //     dropdownItems: [
+    //         {
+    //             id: 1,
+    //             title: 'Group One',
+    //             items: [
+    //                 {
+    //                     title: 'Product Categories',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Product Sliders',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Product Tabs',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Product Widgets',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Recent Products',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //             ],
+    //         },
+    //         {
+    //             id: 2,
+    //             title: 'Group Two',
+    //             items: [
+    //                 {
+    //                     title: 'Sale Products',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Featured Products',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Top Rated Products',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Best Selling',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Product Attributes',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //             ],
+    //         },
+    //         {
+    //             id: 3,
+    //             title: 'Group Three',
+    //             items: [
+    //                 {
+    //                     title: 'Blog Posts',
+    //                     preview: '',
+    //                     link: '/blog-posts',
+    //                 },
+    //                 {
+    //                     title: 'Mailchimp Form',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Icon Box',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Team Member',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'FAQs / Toggles',
+    //                     preview: '',
+    //                     link: '/faq',
+    //                 },
+    //             ],
+    //         },
+    //         {
+    //             id: 4,
+    //             title: 'Group Four',
+    //             items: [
+    //                 {
+    //                     title: 'Countdown Timer',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Buttons',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Testimonials',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //                 {
+    //                     title: 'Google Maps',
+    //                     preview: '',
+    //                     link: '',
+    //                 },
+    //             ],
+    //         },
+    //     ],
+    // },
+    // {
+    //     id: 1,
+    //     tabTitle: 'Pages',
+    //     img: "",
+    //     dropdownItems: [
+    //         {
+    //             id: 1,
+    //             title: '',
+    //             items: [
+    //                 {
+    //                     title: 'About Us',
+    //                     preview: '',
+    //                     link: '/about',
+    //                 },
+    //                 {
+    //                     title: 'About Us Two',
+    //                     preview: '',
+    //                     link: '/about',
+    //                 },
+    //                 {
+    //                     title: 'Contact Us',
+    //                     preview: '',
+    //                     link: '/contact',
+    //                 },
+    //                 {
+    //                     title: 'FAQ',
+    //                     preview: '',
+    //                     link: '/faq',
+    //                 },
+    //                 {
+    //                     title: 'Coming Soon',
+    //                     preview: '',
+    //                     link: '/coming-soon',
+    //                 },
+    //                 {
+    //                     title: 'Not Found',
+    //                     preview: '',
+    //                     link: '/not-found',
+    //                 },
+    //             ],
+    //         },
+    //     ],
+    // },
 ]
 
 export const pagesTab = [
@@ -743,13 +851,21 @@ export const faqs = [
 
 export const initialProduct = {
     id: 0,
-    category: '',
-    name: '',
-    description: '',
-    price: '',
-    image: '',
-    hover_image: '',
+    product_id: 0,
+    user_id: 0,
+    quantity: 0,
     created_at: '',
     updated_at: '',
-    stock: 0,
-  }
+    product : {
+        id: 0,
+        category: '',
+        name: '',
+        description: '',
+        price: '',
+        image: '',
+        hover_image: '',
+        created_at: '',
+        updated_at: '',
+        stock: 0,
+    }
+}

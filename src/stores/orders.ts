@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { withTryCatch } from '@/utils/withTryCatch';
 import { sendApiRequest } from '@/utils/api';
 import type { CartItem, Order } from '@/types'
+import { useToast } from 'vue-toast-notification';
 
 const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`;
 
@@ -11,6 +12,7 @@ export const useOrderStore = defineStore('order', () => {
     const cart = ref<CartItem[]>([]);
     const isLoading = ref(true);
     const isCheckingOut = ref(false);
+    const toast = useToast();
 
     async function handleCheckout() {
         isCheckingOut.value = true;
@@ -24,16 +26,15 @@ export const useOrderStore = defineStore('order', () => {
         const { data, error } = await withTryCatch(() =>
             sendApiRequest('post', url, payload)
         );
-        // console.log(data);
     
         if (data.status === 'success') {
-            console.log("Success!", data.message);
+            toast.error(data.message);
         } else {
-            console.error("Failed to added product to cart.");
+            toast.error("Failed to added product to cart.");
         }
         
         if (error) {
-            console.log(error);
+            toast.error(`Error: ${error || 'An unexpected error occurred'}`);
         }
 
         isCheckingOut.value = false;
@@ -45,18 +46,13 @@ export const useOrderStore = defineStore('order', () => {
         const { data, error } = await withTryCatch(() =>
             sendApiRequest('get', url)
         );
-        // console.log(data);
     
-        if (data.status === 'success') {
-            // console.log("Success!", data);
-            // console.log("Success!", data.data);
-            console.log("Success!", data.data.data);
-        } else {
-            console.error("Failed to added product to cart.");
+        if (data.status !== 'success') {
+            toast.error("Failed to fetch orders at this time.");
         }
         
         if (error) {
-            console.log(error);
+            toast.error(`Error: ${error || 'An unexpected error occurred'}`);
         }
 
         isLoading.value = false;

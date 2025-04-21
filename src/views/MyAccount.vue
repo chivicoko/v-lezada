@@ -7,11 +7,28 @@ import PaymentView from "@/components/my-account/PaymentView.vue";
 import AddressView from "@/components/my-account/AddressView.vue";
 import AccountDetails from "@/components/my-account/AccountDetails.vue";
 import AppLayout from "@/layouts/AppLayout.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useAuthStore } from '@/stores/authStore'
+import { useOrderStore } from '@/stores/orders'
+import { storeToRefs } from 'pinia'
 
 const tabs = ref(['dashboard', 'orders', 'download', 'payment', 'address', 'account details']);
 const currentTab = ref('dashboard');
 
+const orderStore = useOrderStore()
+
+// const { isLoading: orderLoading, orders } = storeToRefs(orderStore);
+const { fetchOrders } = orderStore;
+
+const authStore = useAuthStore()
+const { userProfile, userNames, isLoading: userProfileLoading } = storeToRefs(authStore);
+const { getUserProfile } = authStore;
+
+onMounted(() => {
+    fetchOrders()
+    getUserProfile()
+    console.log(userProfile.value)
+})
 </script>
 
 <template>
@@ -25,7 +42,7 @@ const currentTab = ref('dashboard');
             </div>
 
             <div v-if="currentTab === 'dashboard'" class="w-full h-full border border-neutral-200 px-8">    
-                <DashboardView />
+                <DashboardView :userNames="userNames" :isLoading="userProfileLoading" />
             </div>
             <div v-if="currentTab === 'orders'" class="w-full h-full border border-neutral-200 px-8">    
                 <OrdersView />
@@ -37,10 +54,10 @@ const currentTab = ref('dashboard');
                 <PaymentView />
             </div>
             <div v-if="currentTab === 'address'" class="w-full h-full border border-neutral-200 px-8">    
-                <AddressView />
+                <AddressView :userProfile="userProfile" :isLoading="userProfileLoading" />
             </div>
             <div v-if="currentTab === 'account details'" class="w-full h-full border border-neutral-200 px-8">    
-                <AccountDetails />
+                <AccountDetails :userProfile="userProfile" :userNames="userNames" :isLoading="userProfileLoading" />
             </div>
         </div>
     </Section>

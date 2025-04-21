@@ -1,22 +1,38 @@
 export interface Product {
-    id: number;
-    category: string;
-    name: string;
-    description: string;
-    price: string;
-    image: string;
-    hover_image: string;
-    created_at: string;
-    updated_at: string;
-    stock: number;
-    new?: string;
-    out?: string;
-    percentageDiscount?: number;
-    old_price?: number;
+  id: number;
+  category?: string;
+  name?: string;
+  description?: string;
+  price?: string;
+  image?: string;
+  hover_image?: string;
+  created_at?: string;
+  updated_at?: string;
+  stock?: number;
+  new?: string;
+  out?: string;
+  percentageDiscount?: number;
+  old_price?: number;
 }
 
-export interface CartItem extends Product {
+export interface CartItemProps extends Product {
+  product: Product;
+  id: number;
+  product_id?: number;
+  user_id?: number;
   quantity: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface WishlistItemProps extends Product {
+  product: Product;
+  id: number;
+  product_id?: number;
+  user_id?: number;
+  quantity?: number;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface Review {
@@ -24,23 +40,27 @@ export interface Review {
   productId: number;
   rating: number;
   comment: string;
-  // Add other relevant fields as per API response
 }
 
 export interface Order {
-    id: number;
-    items: CartItem[];
-    total: number;
-    // Add other relevant fields as per API response
+  id?: number;
+  items?: CartItemProps[];
+  total?: number;
 }
 
 export interface LoginProps {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }
 
 export interface RegisterProps extends LoginProps {
-  name: string;
-  phone_number: string;
-  address: string;
+  name?: string;
+  phone_number?: string;
+  address?: string;
+}
+
+export interface UserProps extends RegisterProps {
+  name?: string;
+  phone_number?: string;
+  address?: string;
 }

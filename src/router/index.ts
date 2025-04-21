@@ -41,7 +41,7 @@ const router = createRouter({
       component: () => import('../views/ContactView.vue'),
     },
     {
-      path: '/blog-posts',
+      path: '/blog',
       name: 'blogPosts',
       component: () => import('../views/BlogPosts.vue'),
     },
@@ -54,6 +54,11 @@ const router = createRouter({
       path: '/blog-posts/:slug',
       name: 'blogPostDetails',
       component: () => import('../views/SingleBlogPost.vue'),
+    },
+    {
+      path: '/shop',
+      name: 'shop',
+      component: () => import('../views/ShopView.vue'),
     },
     {
       path: '/cart',

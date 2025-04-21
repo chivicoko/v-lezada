@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import type { UserProps } from '@/types';
+import LoadingSpinner from "@/components/LoadingSpinner.vue"
+
+defineProps<{
+  userProfile: UserProps | null,
+  isLoading: boolean,
+  userNames: {
+    firstName: string;
+    lastName: string;
+  },
+}>();
 </script>
 
 <template>
@@ -7,27 +18,29 @@
   </div>
   
   <div class="flex items-center justify-between gap-6 py-7">
-    <form class="w-full flex flex-col gap-6">
+    <div v-if="isLoading" class="w-full py-6 flex items-center justify-center"><LoadingSpinner dynamicSize="size-8" /></div>
+
+    <form v-else class="w-full flex flex-col gap-6">
       <div class="w-full flex items-end gap-6">
           <div class="flex-1 flex flex-col gap-1">
               <label for="firstName" class="capitalize text-sm text-neutral-400">first name</label>
-              <input type="text" id="firstName" placeholder="" class="p-2 outline-0 border border-neutral-300" />
+              <input type="text" id="firstName" :defaultValue="userNames.firstName" placeholder="" class="p-2 outline-0 border border-neutral-300" />
           </div>
           <div class="flex-1 flex flex-col gap-1">
               <label for="lastName" class="capitalize text-sm text-neutral-400">last name</label>
-              <input type="text" id="lastName" placeholder="" class="p-2 outline-0 border border-neutral-300" />
+              <input type="text" id="lastName" :defaultValue="userNames.lastName" placeholder="" class="p-2 outline-0 border border-neutral-300" />
           </div>
       </div>
       <div class="w-full flex items-end gap-6">
           <div class="flex-1 flex flex-col gap-1">
               <label for="displayName" class="capitalize text-sm text-neutral-400">display name</label>
-              <input type="text" id="displayName" placeholder="" class="p-2 outline-0 border border-neutral-300" />
+              <input type="text" id="displayName" :defaultValue="`${userNames.firstName}${userNames.lastName}`" placeholder="" class=" p-2 outline-0 border border-neutral-300" />
           </div>
       </div>
       <div class="w-full flex items-end gap-6">
           <div class="flex-1 flex flex-col gap-1">
               <label for="emailAddress" class="capitalize text-sm text-neutral-400">email address</label>
-              <input type="text" id="emailAddress" placeholder="" class="p-2 outline-0 border border-neutral-300" />
+              <input type="text" id="emailAddress" :defaultValue="userProfile?.email" placeholder="" class="p-2 outline-0 border border-neutral-300" />
           </div>
       </div>
 

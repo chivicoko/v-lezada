@@ -1,13 +1,14 @@
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
 import { useRouter } from "vue-router";
 import { sendApiRequest } from '@/utils/api';
 import { withTryCatch } from '@/utils/withTryCatch';
 import { parseItemIntoArray } from '@/utils/formatters';
-import type { LoginProps, RegisterProps } from '@/types'
+import type { LoginProps, RegisterProps, UserProps } from '@/types';
+import { useToast } from 'vue-toast-notification';
 
 export const useAuthStore = defineStore('auth', () => {
-  const userProfile = ref(null)
+  const userProfile = ref<UserProps | null>(null);
   const isLoading = ref(true);
   const token = ref(localStorage.getItem('token') || '')
   const isAuthenticated = computed(() => !!userProfile.value && !!token.value)
@@ -15,9 +16,10 @@ export const useAuthStore = defineStore('auth', () => {
   const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`;
   
   const router = useRouter();
-  
+  const toast = useToast();
+
   const userNames = computed(() => {
-    const nameArray = parseItemIntoArray(userProfile.value?.name, ' ')
+    const nameArray = parseItemIntoArray(userProfile.value?.name ?? '', ' ');
   
     const first = nameArray?.[0] ?? '';
     const last = nameArray?.[1] ?? '';
@@ -39,17 +41,13 @@ export const useAuthStore = defineStore('auth', () => {
       const token = data.data.token;
       
       localStorage.setItem('auth_token', token);
-
       router.push('/');
-
-      // console.log("Login successful. Token saved:", token);
-      // console.log("Login successful. Token saved:", data);
     } else {
-      console.error("Login failed. Token not received.");
+      toast.error("Login failed. Token not received.");
     }
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -58,13 +56,12 @@ export const useAuthStore = defineStore('auth', () => {
   async function registerUser(userData: RegisterProps) {
     const url = `${API_BASE_URL}/register`;
 
-    const { data, error } = await withTryCatch(() =>
+    const { error } = await withTryCatch(() =>
       sendApiRequest('post', url, userData)
     );
-    // console.log(data);
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
     
     isLoading.value = false;
@@ -79,13 +76,12 @@ export const useAuthStore = defineStore('auth', () => {
 
     if (data !== null) {
       userProfile.value = data.data.user;
-      // console.log("Profile retrieved successfully:", userProfile.value);
     } else {
-      console.error("Failed to retrieve profile.");
+      toast.error("Failed to retrieve profile.");
     }
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
     
     isLoading.value = false;
@@ -100,13 +96,12 @@ export const useAuthStore = defineStore('auth', () => {
 
     if (data.message === "Successfully logged out") {
       localStorage.removeItem('auth_token');
-      // console.log("Logout successful.", data.message);
     } else {
-      console.error("Logout failed.");
+      toast.error("Logout failed!");
     }
     
     if (error) {
-      console.log(error);
+      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
     
     isLoading.value = false;

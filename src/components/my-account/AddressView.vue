@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import EditIcon from "@/components/icons/EditIcon.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import type { UserProps } from '@/types';
+
+defineProps<{
+  userProfile: UserProps | null,
+  isLoading: boolean
+}>();
 </script>
 
 <template>
@@ -8,13 +15,15 @@ import EditIcon from "@/components/icons/EditIcon.vue";
   </div>
   
   <div class="flex items-center justify-between gap-6 py-7">
-    <div class="text-neutral-500">
-      <p class="font-bold text-lg">John Doe</p>
+    <div v-if="isLoading" class="w-full py-6 flex items-center justify-center"><LoadingSpinner dynamicSize="size-8" /></div>
+    
+    <div v-else class="text-neutral-500">
+      <p class="font-bold text-lg">{{`${userProfile?.name}` || 'John Doe'}}</p>
       <br/>
-      <p>1355 Market St, Suite 900</p>
+      <p>{{`${userProfile?.address}` || '1355 Market St, Suite 900'}}</p>
       <p>San Francisco, CA 94103</p>
       <br/>
-      <p>Mobile: (123) 456-7890</p>
+      <p>Mobile: {{`${userProfile?.phone_number}` || '(123) 456-7890'}}</p>
       <br/>
       <button class="flex items-center gap-2 cursor-pointer">
         <span><EditIcon /></span>

@@ -23,7 +23,8 @@ const { userProfile, userNames, isLoading: userProfileLoading } = storeToRefs(au
 const { getUserProfile } = authStore;
 
 // const { orders } = storeToRefs(orderStore);
-const { isLoading: orderLoading, isCheckingOut } = storeToRefs(orderStore);
+// const { isLoading: orderLoading, isCheckingOut } = storeToRefs(orderStore);
+const { isCheckingOut } = storeToRefs(orderStore);
 const { fetchOrders, handleCheckout } = orderStore;
 
 const router = useRouter();
@@ -133,7 +134,7 @@ onMounted(() => {
                 <div v-if="cart.length > 0">
                   <p v-for="item in cart" :key="item.id" class="flex items-end justify-between gap-4 py-[9px]">
                     <span class="text-neutral-500">{{item.product.name}} x {{item.quantity}}</span>
-                    <span>${{parseFloat(item.product.price).toFixed(2)}}</span>
+                    <span>${{parseFloat(item.product.price ?? '0.00').toFixed(2)}}</span>
                   </p>
                 </div>
   
@@ -151,7 +152,7 @@ onMounted(() => {
   
                 <p class="flex items-end justify-between text-lg font-bold gap-4 py-[14px]">
                   <span class="capitalize">grand total</span>
-                  <span>${{parseFloat(cartTotal + shippingAmount + subTotal).toFixed(2)}}</span>
+                  <span>${{parseFloat(cartTotal + shippingAmount + subTotal.toString()).toFixed(2)}}</span>
                 </p>
               </div>
   
