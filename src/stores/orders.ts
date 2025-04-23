@@ -2,14 +2,14 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { withTryCatch } from '@/utils/withTryCatch';
 import { sendApiRequest } from '@/utils/api';
-import type { CartItem, Order } from '@/types'
+import type { CartItemProps, Order } from '@/types'
 import { useToast } from 'vue-toast-notification';
 
 const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`;
 
 export const useOrderStore = defineStore('order', () => {
     const orders = ref<Order[]>([]);
-    const cart = ref<CartItem[]>([]);
+    const cart = ref<CartItemProps[]>([]);
     const isLoading = ref(true);
     const isCheckingOut = ref(false);
     const toast = useToast();

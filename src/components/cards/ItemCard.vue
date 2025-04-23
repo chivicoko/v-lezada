@@ -34,7 +34,7 @@ defineProps<{
 
         <div v-else class="flex items-center justify-between gap-5">
             <RouterLink :to="`/products/${item.product?.id}`" class="flex items-center gap-6 w-[50%] hover:bg-neutral-800/10 p-1 transition-all duration-500 ease-in-out">
-                <img :src="`${item.product?.image}`" alt="" class="w-30 h-40 object-cover"/>
+                <img :src="`${item.product.image}`" alt="" class="w-30 h-40 object-cover"/>
                 <p class="text-gray-600 truncate">{{ item.product?.name }}</p>
             </RouterLink>
             <div class="w-[13%]">

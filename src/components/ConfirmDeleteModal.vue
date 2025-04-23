@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import TrashIcon from "@/components/icons/TrashIcon.vue"
 import LoadingSpinner from "@/components/LoadingSpinner.vue"
-import type { CartItem, WishlistItemProps } from '@/types'
+import type { CartItemProps, WishlistItemProps } from '@/types'
 
 defineProps<{
     handleDelete: (id: number) => void,
     handleClearAll?: () => void,
-    item: CartItem | WishlistItemProps,
+    item: CartItemProps | WishlistItemProps,
     isLoading: boolean,
     cancelDelete: () => void,
     mode: "cart" | "wishlist",

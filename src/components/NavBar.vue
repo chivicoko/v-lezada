@@ -149,7 +149,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <nav :class="`relative ${isVisible ? 'shadow-lg sticky top-0 left-0 right-0 z-30' : 'normal'} w-full px-[49.5px] bg-white flex items-center justify-between`">
+    <nav v-if="route.path !== '/login-register'" :class="`relative ${isVisible ? 'shadow-lg sticky top-0 left-0 right-0 z-30' : 'normal'} w-full px-[49.5px] bg-white flex items-center justify-between`">
         <div class="w-1/3">
             <RouterLink to="/" class="">
                 <img src="@/assets/images/logo.png" alt="logo" class="">
@@ -159,7 +159,6 @@ onMounted(() => {
         <ul class="flex items-center justify-center w-1/3">
             <li v-for="tab in nav_tabs" :key="tab.id" class="w-1/5 py-[22px] text-center flex items-center justify-center group">
                 <button @click="handleTabNavigation(tab.url)" class="w-full cursor-pointer py-[5px] text-center group">
-                <!-- <button @click="handleDropdownToggle(tab.id)" @mouseover="handleDropdownHover(tab.id)" class="cursor-pointer py-[27px] px-6"> -->
                     <span class="flex items-center gap-2 overflow-hidden">
                         <span class="">
                             <span :class="`${route.path === tab.url ? 'text-neutral-800' : 'text-gray-500'} text-lg group-hover:text-neutral-800 font-semibold`">{{tab.tabTitle}}</span>
@@ -168,70 +167,7 @@ onMounted(() => {
                         <!-- <span class="pt-1 text-gray-300 group-hover:text-gray-800 text-sm"><ArrowDown/></span> -->
                     </span>
                 </button>
-                
-                <!-- dropdowns -->
-                <!-- <span class="overflow-hidden absolute top-[80.5px] left-1/2 -translate-x-1/2 w-full h-[50vh] px-15 bg-transparent z-50">
-                    <span :class="`${isDropdownVisible(tab.id) ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'} w-fit px-15 bg-white shadow-sm transition-all duration-700 ease-in-out flex items-start gap-10 divide-x-1 divide-neutral-300`">
-                        <span v-for="item in tab.dropdownItems" :key="item.id" class="h-full flex flex-col gap-3 py-9 pr-[5.5rem]">
-                            <h2 v-if="item.title" class="font-semibold whitespace-nowrap">{{ item.title }}</h2>
-                            <ul v-for="(itemText, index) in item.items" :key="index" class="">
-                                <li class="whitespace-nowrap text-neutral-500 hover:underline"><RouterLink to="/">{{itemText.title}}</RouterLink></li>
-                            </ul>
-                        </span>
-                        <span v-if="tab.img" class="h-[230px] w-[200px] p-0">
-                            <img :src="`/src/assets/images/menu-image/${tab.img}`" alt="menu image" class="h-full w-full object-cover">
-                        </span>
-                    </span>
-                </span> -->
             </li>
-            
-            <!-- pages tab -->
-            <!-- <li class="group relative">
-                <button class="flex items-center gap-2 cursor-pointer overflow-hidden">
-                    <span class="">
-                        <span class="text-[15px] text-gray-500 group-hover:text-gray-800 font-semibold">Pages</span>
-                        <div class="h-[1.7px] w-full bg-transparent transform -translate-x-full group-hover:-translate-x-0 group-hover:bg-black transition-all duration-300 ease-in-out"></div>
-                    </span>
-                    <span class="pt-1 text-gray-300 group-hover:text-gray-800 text-sm"><ArrowDown/></span>
-                </button>
-                
-                <div class="hidden group-hover:block absolute -bottom-[251.5px] left-6 -translate-x-1/2 w-fit py-4 px-12 bg-white z-50">
-                    <ul v-for="item in pagesTab" :key="item.id" class="">
-                        <li class="whitespace-nowrap py-1 hover:underline text-neutral-500"><RouterLink :to="`/${item.url}`">{{item.title}}</RouterLink></li>
-                    </ul>
-                </div>
-            </li> -->
-
-            <!-- blog tab -->
-            <li class="group relative">
-                <!-- <button class="flex items-center gap-2 cursor-pointer overflow-hidden">
-                    <span class="">
-                        <span class="text-[15px] text-gray-500 group-hover:text-gray-800 font-semibold">Blog</span>
-                        <div class="h-[1.7px] w-full bg-transparent transform -translate-x-full group-hover:-translate-x-0 group-hover:bg-black transition-all duration-300 ease-in-out"></div>
-                    </span>
-                    <span class="pt-1 text-gray-300 group-hover:text-gray-800 text-sm"><ArrowDown/></span>
-                </button> -->
-                
-                <!-- blog dropdowns -->
-                <!-- <div v-show="handleDropdownMouseover" @click="handleDropdownMouseout" :class="`${isDropdownMenuVisible ? 'block' : 'hidden'} absolute -bottom-[187.5px] left-6 -translate-x-1/2 w-fit py-4 bg-white z-50`">
-                    <div class="w-full h-full px-12">
-                        <ul v-for="blogItem in blogTab" :key="blogItem.id" class="relative w-full flex flex-col gap-3 h-full">
-                            <li class="whitespace-nowrap w-full flex items-center justify-between gap-12 py-1">
-                                <span>{{blogItem.title}}</span>
-                                <span class="pt-1 text-gray-300 group-hover:text-gray-800 text-sm"><ArrowDown/></span>
-                            </li>
-                            <li class="whitespace-nowrap absolute right-0 top-0 bg-white">
-                                <ul v-for="item in blogItem.menu" :key="item.id">
-                                    <li class="whitespace-nowrap">
-                                        <RouterLink :to="item.link">{{item.title}}</RouterLink>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-            </li>
-
         </ul>
 
         <div class="w-1/3 flex items-center justify-end gap-[16.1px] relative">

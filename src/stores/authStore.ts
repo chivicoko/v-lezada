@@ -39,6 +39,7 @@ export const useAuthStore = defineStore('auth', () => {
     
     if (data.message === "Login successful" && data && data.data && data.data.token) {
       const token = data.data.token;
+      toast.default(data.message);
       
       localStorage.setItem('auth_token', token);
       router.push('/');
@@ -56,13 +57,15 @@ export const useAuthStore = defineStore('auth', () => {
   async function registerUser(userData: RegisterProps) {
     const url = `${API_BASE_URL}/register`;
 
-    const { error } = await withTryCatch(() =>
+    const { data, error } = await withTryCatch(() =>
       sendApiRequest('post', url, userData)
     );
     
     if (error) {
       toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
+    
+    toast.default(data.message);
     
     isLoading.value = false;
   }

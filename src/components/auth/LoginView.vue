@@ -2,8 +2,14 @@
 import { ref } from "vue";
 import { useAuthStore } from '@/stores/authStore';
 
-const email = ref(`user${Date.now()}@example.com`);
-const password = ref('password123');
+const email = ref(``);
+const password = ref('');
+
+const userData2 = ref({
+    email: 'victor.okoye@gmail.com',
+    // email: `user${Date.now()}@example.com`,
+    password: 'password123',
+})
 
 const authStore = useAuthStore();
 const { loginUser } = authStore;
@@ -12,8 +18,8 @@ const isRegisterd = ref(true);
 
 const handleLogin = () => {
     loginUser({
-        email: email.value,
-        password: password.value,
+        email: email.value || userData2.value.email,
+        password: password.value || userData2.value.password,
     });
 };
 </script>

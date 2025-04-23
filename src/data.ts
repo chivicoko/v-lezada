@@ -869,3 +869,22 @@ export const initialProduct = {
         stock: 0,
     }
 }
+
+export const allCategories = [
+    {
+        name: 'All Categories',
+        categoryName: ''
+    },
+    {
+        name: 'Home & Living',
+        categoryName: 'home & living'
+    },
+    {
+        name: 'Fashion',
+        categoryName: 'fashion'
+    },
+    {
+        name: 'Electronics',
+        categoryName: 'electronics'
+    },
+]

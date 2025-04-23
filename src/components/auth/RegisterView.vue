@@ -3,22 +3,31 @@ import { ref } from "vue";
 import { useAuthStore } from '@/stores/authStore';
 
 const isRegisterd = ref(false);
-const name = ref('Test User');
-const email = ref(`user${Date.now()}@example.com`);
-const password = ref('password123');
-const phone_number = ref('+1234567890');
-const address = ref('123 Test Street');
+const name = ref('');
+const email = ref(``);
+const password = ref('');
+const phone_number = ref('');
+const address = ref('');
+
+const userData2 = ref({
+    name: 'Victor Okoye',
+    email: 'victor.okoye@gmail.com',
+    // email: `user${Date.now()}@example.com`,
+    phone_number: '+1234567890',
+    address: '123 Test Street',
+    password: 'password123',
+})
 
 const authStore = useAuthStore();
 const { registerUser } = authStore;
 
 const handleRegister = () => {
     registerUser({
-        name: name.value,
-        email: email.value,
-        password: password.value,
-        phone_number: phone_number.value,
-        address: address.value,
+        name: name.value || userData2.value.name,
+        email: email.value || userData2.value.email,
+        password: password.value || userData2.value.password,
+        phone_number: phone_number.value || userData2.value.phone_number,
+        address: address.value || userData2.value.address,
     });
     isRegisterd.value = true;
 };

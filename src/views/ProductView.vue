@@ -6,7 +6,7 @@ import CancelIcon from "@/components/icons/CancelIcon.vue";
 import HeaderTwo from "@/components/HeaderTwo.vue";
 import CTA from "@/components/CTA.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductsStore } from '@/stores/products';
 import { useCartStore } from '@/stores/cart';
@@ -37,10 +37,19 @@ const toggleImageQuickview = (id: number) => {
   }
 }
 
+const loadProduct = () => {
+  const productId = parseInt(route.params.id as string)
+  if (!isNaN(productId)) {
+    fetchProductById(productId)
+  }
+}
+
 onMounted(() => {
-  const productId = parseInt(route.params.id as string)  
-  fetchProductById(productId)
-  console.log(selectedProduct.value);
+  loadProduct()
+})
+
+watch(() => route.params.id, () => {
+  loadProduct()
 })
 </script>
 
@@ -69,14 +78,14 @@ onMounted(() => {
                     <button 
                       @click="addToWishlist(selectedProduct?.id ?? 0)" 
                       title="Add to wishlist" 
-                      :class="`${isInCart(selectedProduct?.id ?? 0) ? 'stroke stroke-red-700 text-red-700' : 'text-neutral-500'} cursor-pointer size-16 p-2 bg-white hover:bg-neutral-200 border border-transparent hover:border-neutral-800 flex items-center justify-center text-[20px] transition-all duration-1000 ease-in-out`"
+                      :class="`${isInCart(selectedProduct?.id ?? 0) ? 'stroke stroke-red-700 text-red-700' : 'text-neutral-500'} shadow-md cursor-pointer size-16 p-2 bg-white hover:bg-neutral-200 border border-transparent hover:border-neutral-800 flex items-center justify-center text-[20px] transition-all duration-1000 ease-in-out`"
                     >
                       <FavoriteIcon/>
                     </button>
                     <button 
                       @click="toggleImageQuickview(selectedProduct?.id ?? 0)" 
                       :title="`${isExpanded ? 'Cancel Quick view' : 'Quick view'}`" 
-                      :class="`cursor-pointer size-16 p-2 bg-white hover:bg-neutral-200 border border-transparent ${isExpanded ? 'hover:border-red-700 text-[30px] hover:text-red-700' : 'hover:border-neutral-800 text-[20px]'} text-neutral-500 flex items-center justify-center transition-all duration-1000 ease-in-out`"
+                      :class="`shadow-md cursor-pointer size-16 p-2 bg-white hover:bg-neutral-200 border border-transparent ${isExpanded ? 'hover:border-red-700 text-[30px] hover:text-red-700' : 'hover:border-neutral-800 text-[20px]'} text-neutral-500 flex items-center justify-center transition-all duration-1000 ease-in-out`"
                     >
                       <span v-if="isExpanded"><CancelIcon/></span>
                       <span v-else><SearchIcon/></span>

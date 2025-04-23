@@ -4,6 +4,9 @@ import FavoriteIcon from "@/components/icons/FavoriteIcon.vue";
 import ShareIcon from "@/components/icons/ShareIcon.vue";
 import SearchIcon from "@/components/icons/SearchIcon.vue";
 import CancelIcon from "@/components/icons/CancelIcon.vue";
+import {useRoute} from "vue-router";
+
+const route = useRoute();
 
 defineProps<{
     addToWishlist: (id: number) => void,
@@ -32,35 +35,35 @@ defineProps<{
                     <button 
                         @click="addToWishlist(product.id)" 
                         title="Add to wishlist" 
-                        :class="`${isInStore(product.id) ? 'stroke stroke-red-700 text-red-700' : 'text-neutral-500'} cursor-pointer size-10 p-2 bg-white hover:bg-neutral-200 border border-transparent hover:border-neutral-800 flex items-center justify-center text-[20px] transition-all duration-1000 ease-in-out`"
+                        :class="`${isInStore(product.id) ? 'stroke stroke-red-700 text-red-700' : 'text-neutral-500'} shadow-md cursor-pointer size-10 p-2 bg-white hover:bg-neutral-200 border border-transparent hover:border-neutral-800 flex items-center justify-center text-[20px] transition-all duration-1000 ease-in-out`"
                     >
                         <FavoriteIcon/>
                     </button>
-                    <button title="Add to compare" class="cursor-pointer size-10 p-2 bg-white hover:bg-neutral-200 border border-transparent hover:border-neutral-800 flex items-center justify-center text-[20px] text-neutral-500 transition-all duration-1000 ease-in-out">
+                    <button title="Add to compare" class="shadow-md cursor-pointer size-10 p-2 bg-white hover:bg-neutral-200 border border-transparent hover:border-neutral-800 flex items-center justify-center text-[20px] text-neutral-500 transition-all duration-1000 ease-in-out">
                         <ShareIcon/>
                     </button>
                     <button 
                         @click="toggleImageQuickview(product.id)" 
                         :title="`${isExpanded ? 'Cancel Quick view' : 'Quick view'}`" 
-                        :class="`cursor-pointer size-10 p-2 bg-white hover:bg-neutral-200 border border-transparent ${isExpanded ? 'hover:border-red-700 text-[30px] hover:text-red-700' : 'hover:border-neutral-800 text-[20px]'} text-neutral-500 flex items-center justify-center transition-all duration-1000 ease-in-out`"
+                        :class="`shadow-md cursor-pointer size-10 p-2 bg-white hover:bg-neutral-200 border border-transparent ${isExpanded ? 'hover:border-red-700 text-[30px] hover:text-red-700' : 'hover:border-neutral-800 text-[20px]'} text-neutral-500 flex items-center justify-center transition-all duration-1000 ease-in-out`"
                     >
                         <span v-if="isExpanded"><CancelIcon/></span>
                         <span v-else><SearchIcon/></span>
                     </button>
                 </div>
             </div>
-            <RouterLink :to="`/products/${product.id}`" :class="`${isExpanded ? 'h-full w-full' : 'h-[25rem] w-[23rem]'}`">
+            <RouterLink :to="`/products/${product.id}`" :class="`${isExpanded ? 'h-full w-full' : route.path === '/shop' ? 'h-[23rem] w-[20rem]' : 'h-[25rem] w-[23rem]'}`">
                 <img 
                     loading="lazy" 
                     :src="product.image ? product.image : '/src/assets/images/product/decor/2.jpg'" 
                     :alt="`product: ${product.name}`" 
-                    :class="`opacity-100 ${isExpanded ? 'h-full w-full ' : 'h-[25rem] w-[23rem] '} object-cover group-hover:opacity-0 transition-all duration-1000 ease-in-out`"
+                    :class="`opacity-100 ${isExpanded ? 'h-full w-full ' : route.path === '/shop' ? 'h-[23rem] w-[20rem]' : 'h-[25rem] w-[23rem]'} object-cover group-hover:opacity-0 transition-all duration-1000 ease-in-out`"
                 />
                 <img 
                     loading="lazy" 
                     :src="product.hover_image ? product.hover_image : '/src/assets/images/product/decor/3.jpg'" 
                     :alt="`product: ${product.name}`" 
-                    :class="`absolute top-0 left-0 opacity-0 ${isExpanded ? 'h-full w-full ' : 'h-[25rem] w-[23rem] '} object-cover group-hover:opacity-100 transition-all duration-1000 ease-in-out`"
+                    :class="`absolute top-0 left-0 opacity-0 ${isExpanded ? 'h-full w-full ' : route.path === '/shop' ? 'h-[23rem] w-[20rem]' : 'h-[25rem] w-[23rem]'} object-cover group-hover:opacity-100 transition-all duration-1000 ease-in-out`"
                 />
             </RouterLink>
             <div :class="`${isExpanded ? 'hidden' : 'flex'} flex-col items-start gap-2`">

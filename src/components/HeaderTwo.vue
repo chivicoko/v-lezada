@@ -22,7 +22,7 @@ if (pathName[1]) {
 
 onMounted(() => {
   const productId = parseInt(route.params.id as string)
-  fetchProductById(productId)
+  if (productId) fetchProductById(productId);
 })
 </script>
 
