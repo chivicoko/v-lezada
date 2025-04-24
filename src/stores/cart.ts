@@ -51,6 +51,7 @@ export const useCartStore = defineStore('cart', () => {
     if (data.status === 'success') {
       cart.value = data.data;
     } else {
+      // console.log("Failed to retrieve cart.");
       toast.error("Failed to retrieve cart.");
     }
     
