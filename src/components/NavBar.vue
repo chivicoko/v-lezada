@@ -152,7 +152,7 @@ onMounted(() => {
     <nav v-if="route.path !== '/login-register'" :class="`relative ${isVisible ? 'shadow-lg sticky top-0 left-0 right-0 z-30' : 'normal'} w-full px-[49.5px] bg-white flex items-center justify-between`">
         <div class="w-1/3">
             <RouterLink to="/" class="">
-                <img src="@/assets/images/logo.png" alt="logo" class="">
+                <img src="/images/logo.png" alt="logo" class="">
             </RouterLink>
         </div>
         

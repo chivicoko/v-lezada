@@ -48,7 +48,7 @@ import YoutubeIcon from "@/components/icons/YoutubeIcon.vue"
                 </button>
             </div>
             
-            <img src="@/assets/images/pay.png" alt="payment icons" class="">
+            <img src="/images/pay.png" alt="payment icons" class="">
         </div>
     </footer>
 </template>

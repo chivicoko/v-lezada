@@ -95,13 +95,13 @@ watch(() => route.params.id, () => {
                 <div :class="`${isExpanded ? 'h-full w-full' : 'h-[40rem] w-full'}`">
                   <img 
                     loading="lazy" 
-                    :src="selectedProduct?.image ? selectedProduct?.image : '/src/assets/images/product/decor/2.jpg'" 
+                    :src="selectedProduct?.image ? selectedProduct?.image : '/images/product/decor/2.jpg'" 
                     :alt="`product: ${selectedProduct?.name}`" 
                     :class="`opacity-100 ${isExpanded ? 'h-full w-full ' : 'h-[40rem] w-full '} object-cover group-hover:opacity-0 transition-all duration-1000 ease-in-out`"
                   />
                   <img 
                     loading="lazy" 
-                    :src="selectedProduct?.hover_image ? selectedProduct?.hover_image : '/src/assets/images/product/decor/3.jpg'" 
+                    :src="selectedProduct?.hover_image ? selectedProduct?.hover_image : '/images/product/decor/3.jpg'" 
                     :alt="`product: ${selectedProduct?.name}`" 
                     :class="`absolute top-0 left-0 opacity-0 ${isExpanded ? 'h-full w-full ' : 'h-[40rem] w-full '} object-cover group-hover:opacity-100 transition-all duration-1000 ease-in-out`"
                   />

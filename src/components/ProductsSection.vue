@@ -122,5 +122,5 @@ watch(bottom, (newVal, oldVal) => {
         </div>
     </div>
     
-    <div v-else class="py-16 flex items-center justify-center text-lg">No products available at the moment</div>
+    <div v-else id="productsContent" class="py-16 flex items-center justify-center text-lg">No products available at the moment</div>
 </template>

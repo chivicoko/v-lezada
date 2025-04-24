@@ -91,7 +91,7 @@ const deleteItem = (id: number) => {
                 
                 <div class="flex items-center justify-center">
                   <RouterLink to="/">
-                    <img :src="`/src/assets/images/product/decor/${item.img1}`" :alt="`${item.title} preview`" class="w-50 h-60 object-cover" />
+                    <img :src="`/images/product/decor/${item.img1}`" :alt="`${item.title} preview`" class="w-50 h-60 object-cover" />
                   </RouterLink>
                 </div>
     

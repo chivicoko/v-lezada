@@ -7,7 +7,7 @@ import type { Product, WishlistItemProps } from '@/types'
 // import { storeToRefs } from 'pinia'
 import { useToast } from 'vue-toast-notification';
 
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`;
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
 export const useWishlistStore = defineStore('wishlist', () => {
   const products = ref<Product[]>([]);

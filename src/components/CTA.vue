@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col items-center justify-center gap-6 py-26">
-        <img src="/src/assets/images/cta/cabinet.jpg" alt="cta image">
+        <img src="/images/cta/cabinet.jpg" alt="cta image">
         <ul class="flex items-center gap-6">
             <li><button class="cursor-pointer border-b border-transparent hover:border-neutral-400 text-lg text-neutral-500">#summer</button></li>
             <li><button class="cursor-pointer border-b border-transparent hover:border-neutral-400 text-lg text-neutral-500">#shelf</button></li>

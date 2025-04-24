@@ -55,13 +55,13 @@ defineProps<{
             <RouterLink :to="`/products/${product.id}`" :class="`${isExpanded ? 'h-full w-full' : route.path === '/shop' ? 'h-[23rem] w-[20rem]' : 'h-[25rem] w-[23rem]'}`">
                 <img 
                     loading="lazy" 
-                    :src="product.image ? product.image : '/src/assets/images/product/decor/2.jpg'" 
+                    :src="product.image ? product.image : '/images/product/decor/2.jpg'" 
                     :alt="`product: ${product.name}`" 
                     :class="`opacity-100 ${isExpanded ? 'h-full w-full ' : route.path === '/shop' ? 'h-[23rem] w-[20rem]' : 'h-[25rem] w-[23rem]'} object-cover group-hover:opacity-0 transition-all duration-1000 ease-in-out`"
                 />
                 <img 
                     loading="lazy" 
-                    :src="product.hover_image ? product.hover_image : '/src/assets/images/product/decor/3.jpg'" 
+                    :src="product.hover_image ? product.hover_image : '/images/product/decor/3.jpg'" 
                     :alt="`product: ${product.name}`" 
                     :class="`absolute top-0 left-0 opacity-0 ${isExpanded ? 'h-full w-full ' : route.path === '/shop' ? 'h-[23rem] w-[20rem]' : 'h-[25rem] w-[23rem]'} object-cover group-hover:opacity-100 transition-all duration-1000 ease-in-out`"
                 />

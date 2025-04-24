@@ -109,6 +109,113 @@ export const nav_tabs = [
     },
     {
         id: 2,
+        tabTitle: 'About',
+        url: '/about',
+        img: "menu-element.png",
+        dropdownItems: [
+            {
+                id: 1,
+                title: 'Home Group 1',
+                items: [
+                    {
+                        title: 'Decor',
+                        preview: 'decor.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Creative',
+                        preview: 'creative.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Perfumes',
+                        preview: 'perfumes.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Trending',
+                        preview: 'trending.jpg',
+                        link: '',
+                    },
+                ],
+            },
+            {
+                id: 2,
+                title: 'Home Group 2',
+                items: [
+                    {
+                        title: 'Essentials',
+                        preview: 'essentials.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Accessories',
+                        preview: 'accessories.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Lookbook',
+                        preview: 'lookbook.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Furniture',
+                        preview: 'furniture.jpg',
+                        link: '',
+                    },
+                ],
+            },
+            {
+                id: 3,
+                title: 'Home Group 3',
+                items: [
+                    {
+                        title: 'Smart Design',
+                        preview: 'smart-design.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Collection',
+                        preview: 'collection.jpg',
+                        link: '',
+                    },
+                    {
+                        title: 'Jewelry',
+                        preview: '',
+                        link: '',
+                    },
+                    {
+                        title: 'Cosmetics',
+                        preview: '',
+                        link: '',
+                    },
+                ],
+            },
+            {
+                id: 4,
+                title: 'Home Group 4',
+                items: [
+                    {
+                        title: 'Swimsuit',
+                        preview: '',
+                        link: '',
+                    },
+                    {
+                        title: 'Special',
+                        preview: '',
+                        link: '',
+                    },
+                    {
+                        title: 'Concept',
+                        preview: '',
+                        link: '',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        id: 3,
         tabTitle: 'Shop',
         url: '/shop',
         img: "megamenu-shop.png",
@@ -214,7 +321,7 @@ export const nav_tabs = [
         ],
     },
     {
-        id: 3,
+        id: 4,
         tabTitle: 'Blog',
         url: '/blog',
         img: "megamenu-shop.png",

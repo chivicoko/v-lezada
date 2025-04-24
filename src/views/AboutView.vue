@@ -44,7 +44,7 @@ const handlePrev = () => {
 
         <div class="flex items-start gap-16 px-16 pt-12">
           <div class="flex-1">
-            <img src="/src/assets/images/about/about-bg.png" alt="about us image" />
+            <img src="/images/about/about-bg.png" alt="about us image" />
           </div>
 
           <div class="flex-1 text-neutral-500">
@@ -67,16 +67,16 @@ const handlePrev = () => {
         </div>
       </div>
 
-      <div class="relative px-42 flex items-center justify-center gap-16 group transition-all duration-300 ease-in-out overflow-hidden h-[90vh] w-full bg-center bg-cover" style="background-image: url(../src/assets/images/about/testimonials-bg.png);">
+      <div class="relative px-42 flex items-center justify-center gap-16 group transition-all duration-300 ease-in-out overflow-hidden h-[90vh] w-full bg-center bg-cover" style="background-image: url(../images/about/testimonials-bg.png);">
         <button @click="handlePrev" class="absolute top-2/5 left-10 md:left-20 cursor-pointer text-7xl text-neutral-200 z-10 md:opacity-0 md:group-hover:opacity-100 hover:text-neutral-700 transition-all duration-500 ease-in-out"><ArrowLeft/></button>
         <div class="relative flex items-center justify-between gap-6">
           <div class="">
-            <img :src="`/src/assets/images/about/${slide.img}`" :alt="`testimonial slide ${slide.id}`" class="">
+            <img :src="`/images/about/${slide.img}`" :alt="`testimonial slide ${slide.id}`" class="">
           </div>
           
           <div class="flex-1 text-neutral-500 text-center">
             <div class="flex items-center justify-center pb-6">
-              <img src="/src/assets/images/about/quote.png" :alt="`play button`" class="">
+              <img src="/images/about/quote.png" :alt="`play button`" class="">
             </div>
             <p class="text-2xl">{{slide.testimony}}</p>
             <div class="py-10">
@@ -89,9 +89,9 @@ const handlePrev = () => {
       </div>
 
       <div class="py-24">
-        <div class="flex flex-col items-center justify-center gap-6 overflow-hidden h-[90vh] w-full bg-center bg-cover" style="background-image: url(../src/assets/images/about/about-video-bg-2.png);">
+        <div class="flex flex-col items-center justify-center gap-6 overflow-hidden h-[90vh] w-full bg-center bg-cover" style="background-image: url(../images/about/about-video-bg-2.png);">
           <button class="cursor-pointer">
-            <img src="/src/assets/images/about/icon-play-100x100.png" :alt="`play button`" class="hover:scale-130 transition-all duration-700 ease-in-out">
+            <img src="/images/about/icon-play-100x100.png" :alt="`play button`" class="hover:scale-130 transition-all duration-700 ease-in-out">
           </button>
           <h3 class="uppercase text-5xl text-white">our story</h3>
         </div>

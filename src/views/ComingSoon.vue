@@ -3,7 +3,7 @@
         
         <nav class="w-full py-[27px] px-[49.5px] bg-white flex items-center justify-between">
             <RouterLink to="/" class="">
-                <img src="@/assets/images/logo.png" alt="logo" class="">
+                <img src="/images/logo.png" alt="logo" class="">
             </RouterLink>
         </nav>
 
