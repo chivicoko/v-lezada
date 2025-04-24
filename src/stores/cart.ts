@@ -48,7 +48,7 @@ export const useCartStore = defineStore('cart', () => {
       sendApiRequest('get', url)
     );
 
-    if (data.status === 'success') {
+    if (data && data.status === 'success') {
       cart.value = data.data;
     } else {
       // console.log("Failed to retrieve cart.");
@@ -69,7 +69,7 @@ export const useCartStore = defineStore('cart', () => {
       sendApiRequest('put', url, { quantity: newQuantity })
     );
 
-    if (data.status === 'success') {
+    if (data && data.status === 'success') {
       await fetchCart();
       if (!isAddition.value) toast.default(data.message)
     }
@@ -101,7 +101,7 @@ export const useCartStore = defineStore('cart', () => {
       sendApiRequest('post', url, requestBody)
     );
   
-    if (data?.status === 'success') {
+    if (data && data.status === 'success') {
       toast.default(data.message)
 
       await fetchCart();
@@ -132,7 +132,7 @@ export const useCartStore = defineStore('cart', () => {
       sendApiRequest('delete', url)
     );
 
-    if (data.status === 'success') {
+    if (data && data.status === 'success') {
       if (!isClearAll.value) toast.error(data.message);
       await fetchCart();
     }

@@ -37,7 +37,7 @@ export const useWishlistStore = defineStore('wishlist', () => {
       sendApiRequest('get', url)
     );
 
-    if (data.status === 'success') {
+    if (data && data.status === 'success') {
       wishlist.value = data.data;
     } else {
       toast.error("Failed to retrieve wishlist.");
@@ -72,7 +72,7 @@ export const useWishlistStore = defineStore('wishlist', () => {
       sendApiRequest('post', url, { product_id: productId })
     );
 
-    if (data.status === 'success') {
+    if (data && data.status === 'success') {
       toast.default(data.message)
       await fetchWishlist();
     }
@@ -91,7 +91,7 @@ export const useWishlistStore = defineStore('wishlist', () => {
       sendApiRequest('delete', url)
     );
 
-    if (data.status === 'success') {
+    if (data && data.status === 'success') {
       wishlist.value = wishlist.value.filter(item => item.id !== itemId);
       if (!isClearAll.value) toast.error(data.message);
       await fetchWishlist();

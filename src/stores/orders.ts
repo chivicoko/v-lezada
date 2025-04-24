@@ -27,7 +27,7 @@ export const useOrderStore = defineStore('order', () => {
             sendApiRequest('post', url, payload)
         );
     
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
             toast.error(data.message);
         } else {
             toast.error("Failed to added product to cart.");
@@ -47,7 +47,7 @@ export const useOrderStore = defineStore('order', () => {
             sendApiRequest('get', url)
         );
     
-        if (data.status !== 'success') {
+        if (data && data.status !== 'success') {
             toast.error("Failed to fetch orders at this time.");
         }
         
