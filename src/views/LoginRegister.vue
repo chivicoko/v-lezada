@@ -13,11 +13,10 @@ import RegisterView from "@/components/auth/RegisterView.vue";
       <div class="py-24 px-42">
 
         <div class="w-full h-full flex items-center justify-center gap-6">
-
-            <div class="w-full flex gap-6">
-                <LoginView />
-                <RegisterView />
-            </div>
+          <div class="w-full flex gap-6">
+            <LoginView />
+            <RegisterView />
+          </div>
         </div>
           
       </div>
