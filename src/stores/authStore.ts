@@ -13,7 +13,14 @@ export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('token') || '')
   const isAuthenticated = computed(() => !!userProfile.value && !!token.value)
 
-  const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
+  // const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
+  
+const isProduction = import.meta.env.PROD;
+
+const API_BASE_URL = isProduction 
+  ? `/api` 
+  : `${import.meta.env.VITE_API_BASE_URL}/api`;
+
   
   const router = useRouter();
   const toast = useToast();

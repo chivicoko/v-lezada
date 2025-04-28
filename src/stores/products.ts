@@ -6,7 +6,13 @@ import { sendApiRequest } from '@/utils/api';
 import type { Product } from '@/types';
 import { useToast } from 'vue-toast-notification';
 
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/products`;
+const isProduction = import.meta.env.PROD;
+
+const API_BASE_URL = isProduction 
+  ? `/api/products` 
+  : `${import.meta.env.VITE_API_BASE_URL}/api/products`;
+
+// const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/products`;
 
 export const useProductsStore = defineStore('products', () => {
   const selectedProduct = ref<Product | null>(null);

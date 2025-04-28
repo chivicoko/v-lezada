@@ -6,7 +6,13 @@ import type { Product, CartItemProps } from '@/types';
 import { useWishlistStore } from '@/stores/wishlist';
 import { useToast } from 'vue-toast-notification';
 
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
+// const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
+
+const isProduction = import.meta.env.PROD;
+
+const API_BASE_URL = isProduction 
+  ? `/api` 
+  : `${import.meta.env.VITE_API_BASE_URL}/api`;
 
 export const useCartStore = defineStore('cart', () => {
   const products = ref<Product[]>([]);
