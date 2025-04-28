@@ -35,7 +35,7 @@ const handleLogin = () => {
             </div>
             <div class="flex-1 flex flex-col gap-3 border-b-2 border-neutral-300 focus-within:border-neutral-700">
                 <label for="password" class="text-xl uppercase">password<span class="text-red-700">*</span> </label>
-                <input type="text" id="password" v-model="password" placeholder="***********" class="py-1 outline-0" />
+                <input type="password" id="password" v-model="password" placeholder="***********" class="py-1 outline-0" />
             </div>
         </div>
 
