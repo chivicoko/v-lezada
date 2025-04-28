@@ -51,7 +51,7 @@ const API_BASE_URL = isProduction
       localStorage.setItem('auth_token', token);
       router.push('/');
     } else {
-      toast.error("Login failed. Token not received.");
+      if (!isProduction) toast.error("Login failed. Token not received.");
     }
     
     if (error) {
@@ -69,7 +69,7 @@ const API_BASE_URL = isProduction
     );
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
     
     toast.default(data.message);
@@ -87,11 +87,11 @@ const API_BASE_URL = isProduction
     if (data !== null) {
       userProfile.value = data.data.user;
     } else {
-      toast.error("Failed to retrieve profile.");
+      if (!isProduction) toast.error("Failed to retrieve profile.");
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
     
     isLoading.value = false;
@@ -107,11 +107,11 @@ const API_BASE_URL = isProduction
     if (data.message === "Successfully logged out") {
       localStorage.removeItem('auth_token');
     } else {
-      toast.error("Logout failed!");
+      if (!isProduction) toast.error("Logout failed!");
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
     
     isLoading.value = false;

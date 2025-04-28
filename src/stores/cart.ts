@@ -58,11 +58,11 @@ export const useCartStore = defineStore('cart', () => {
       cart.value = data.data;
     } else {
       // console.log("Failed to retrieve cart.");
-      toast.error("Failed to retrieve cart.");
+      if (!isProduction) toast.error("Failed to retrieve cart.");
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -81,7 +81,7 @@ export const useCartStore = defineStore('cart', () => {
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -119,11 +119,11 @@ export const useCartStore = defineStore('cart', () => {
         }
       }
     } else {
-      toast.error("Failed to add product to cart.");
+      if (!isProduction) toast.error("Failed to add product to cart.");
     }
   
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
   
     isAddition.value = false;
@@ -139,12 +139,12 @@ export const useCartStore = defineStore('cart', () => {
     );
 
     if (data && data.status === 'success') {
-      if (!isClearAll.value) toast.error(data.message);
+      if (!isClearAll.value && !isProduction) toast.error(data.message);
       await fetchCart();
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -171,7 +171,7 @@ export const useCartStore = defineStore('cart', () => {
     cart.value.forEach(async item => 
       removeFromCart(item.id)
     )
-    toast.error('Cart cleared! All cart items have been deleted.');
+    if (!isProduction) toast.error('Cart cleared! All cart items have been deleted.');
     isLoading.value = false;
   };
 

@@ -46,11 +46,11 @@ export const useWishlistStore = defineStore('wishlist', () => {
     if (data && data.status === 'success') {
       wishlist.value = data.data;
     } else {
-      toast.error("Failed to retrieve wishlist.");
+      if (!isProduction) toast.error("Failed to retrieve wishlist.");
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -84,7 +84,7 @@ export const useWishlistStore = defineStore('wishlist', () => {
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -99,12 +99,12 @@ export const useWishlistStore = defineStore('wishlist', () => {
 
     if (data && data.status === 'success') {
       wishlist.value = wishlist.value.filter(item => item.id !== itemId);
-      if (!isClearAll.value) toast.error(data.message);
+      if (!isClearAll.value && !isProduction) toast.error(data.message);
       await fetchWishlist();
     }
     
     if (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
@@ -116,7 +116,7 @@ export const useWishlistStore = defineStore('wishlist', () => {
     wishlist.value.forEach(async item => 
       removeFromWishlist(item.id)
     )
-    toast.error('Wishlist cleared! All wishlist items have been deleted.');
+    if (!isProduction) toast.error('Wishlist cleared! All wishlist items have been deleted.');
     isLoading.value = false;
   };
 

@@ -34,13 +34,13 @@ export const useOrderStore = defineStore('order', () => {
         );
     
         if (data && data.status === 'success') {
-            toast.error(data.message);
+            if (!isProduction) toast.error(data.message);
         } else {
-            toast.error("Failed to added product to cart.");
+            if (!isProduction) toast.error("Failed to added product to cart.");
         }
         
         if (error) {
-            toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+            if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
         }
 
         isCheckingOut.value = false;
@@ -54,11 +54,11 @@ export const useOrderStore = defineStore('order', () => {
         );
     
         if (data && data.status !== 'success') {
-            toast.error("Failed to fetch orders at this time.");
+            if (!isProduction) toast.error("Failed to fetch orders at this time.");
         }
         
         if (error) {
-            toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+            if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
         }
 
         isLoading.value = false;

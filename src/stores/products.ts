@@ -82,7 +82,7 @@ export const useProductsStore = defineStore('products', () => {
         // console.log(products.value);
       }
     } catch (error) {
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     } finally {
       isLoading.value = false;
       fetching = false;
@@ -102,7 +102,7 @@ export const useProductsStore = defineStore('products', () => {
 
     if (error) {
       console.log(`Error: ${error || 'An unexpected error occurred'}`);
-      toast.error(`Error: ${error || 'An unexpected error occurred'}`);
+      if (!isProduction) toast.error(`Error: ${error || 'An unexpected error occurred'}`);
     }
 
     isLoading.value = false;
